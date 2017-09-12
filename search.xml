@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[锄禾]]></title>
-    <url>.%2F2017%2F09%2F12%2F%E9%94%84%E7%A6%BE%2F</url>
+    <url>%2F2017%2F09%2F12%2F%E9%94%84%E7%A6%BE%2F</url>
     <content type="text"><![CDATA[锄禾日当午,汗滴禾下土。谁知盘中餐，粒粒皆辛苦。]]></content>
       <categories>
         <category>随笔</category>
@@ -15,7 +15,7 @@
   </entry>
   <entry>
     <title><![CDATA[Hexo博客搭建流程]]></title>
-    <url>.%2F2017%2F09%2F12%2FHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B%2F</url>
+    <url>%2F2017%2F09%2F12%2FHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[名词定义 Hex0 Node.js Categories Tags]]></content>
       <categories>
         <category>技术</category>
@@ -28,7 +28,7 @@
   </entry>
   <entry>
     <title><![CDATA[Hello World]]></title>
-    <url>.%2F2017%2F09%2F12%2Fhello-world%2F</url>
+    <url>%2F2017%2F09%2F12%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
