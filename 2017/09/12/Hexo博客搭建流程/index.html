@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://owaxmmyw3.bkt.clouddn.com/hexo_file_tree.png">
 <meta property="og:image" content="http://owaxmmyw3.bkt.clouddn.com/demo_blog_index.png">
 <meta property="og:image" content="http://owaxmmyw3.bkt.clouddn.com/theme_setting.png">
-<meta property="og:updated_time" content="2017-09-18T08:28:57.809Z">
+<meta property="og:updated_time" content="2017-09-18T08:40:45.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github+Hexo搭建个人博客">
 <meta name="twitter:description" content="Github+Hexo搭建个人博客Github是目前最火热的代码管理系统，除作为代码托管平台使用外，它还包含了一个创建个人静态博客功能，支持Markdown格式和Html格式文件。本文将在Windows平台下从注册github账号开始介绍利用github搭建个人博客的完整流程。 准备工作 能够上网的PC一台。 邮箱账号一个。 Git for windows Node.js 博客模版-Hexo 博客">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-09-18T16:28:57+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-18T16:40:45+08:00">
                 2017-09-18
               </time>
             
@@ -388,33 +388,26 @@
 <li><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">博客主题-NextTheme</a></li>
 </ol>
 <h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><p>git命令的使用。</p>
-<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h3 id="1-注册账号"><a href="#1-注册账号" class="headerlink" title="1.注册账号"></a>1.注册账号</h3><blockquote>
+<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h3 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h3><blockquote>
 <p>如果已经有了github账号，可以跳过这一步。</p>
 </blockquote>
 <p>前往Github<a href="https://github.com/" target="_blank" rel="external">官网</a>注册一个账号。注意账号名的书写，后面将作为默认博客域名的一部分使用，例如我的博客地址：<a href="https://yuanxiudong.github.io/" target="_blank" rel="external">https://yuanxiudong.github.io/</a> 其中yuanxiudong就是我的账号名，邮箱填写准备好的邮箱账号（后续可以修改）。如果忘记了密码可以通过这个邮箱进行重置密码。<br>注册成功后会收到激活邮件，激活账号并登陆，准备进行下一步：创建Repository。<br><img src="http://owaxmmyw3.bkt.clouddn.com/github-register.png" alt=""></p>
 <blockquote>
 <p><strong>注意：</strong> Github可能因为防火墙的原因造成访问不稳定或速度慢，可以使用国内的一些git服务，比较出名的如：<a href="http://git.oschina.net/" target="_blank" rel="external">码云</a>,也同样支持个人博客主页功能，整个流程类似。</p>
 </blockquote>
-<h3 id="2-创建Repository"><a href="#2-创建Repository" class="headerlink" title="2.创建Repository"></a>2.创建Repository</h3><p>创建Repository故名思议就是创建一个仓库，也就是代码仓库。一个博客的全部代码其实就是一套Html代码仓库。所以说任何一个仓库只要包含了一个index.html或者Readme.md文件，在开启page功能服务后都是可以通过 <strong>‘<a href="https://账号名.github.io/仓库名称" target="_blank" rel="external">https://账号名.github.io/仓库名称</a>‘</strong> 进行访问的。如果创建的是一个名称和github账号名称相同这样的特殊的Repository，就可以直接使用<strong>‘<a href="https://账号名.github.io/" target="_blank" rel="external">https://账号名.github.io/</a>‘</strong>进行访问。<br>个人博客就是利用上面的原理，创建一个和个人账号名称一样的Repository地址，就形成了个人博客主页，例如：<a href="https://yuanxiudong.github.io/" target="_blank" rel="external">https://yuanxiudong.github.io/</a> 。当然也可以放置在二级目录下。<br><img src="http://owaxmmyw3.bkt.clouddn.com/new_repository.png" alt=""></p>
-<h3 id="3-配置GitHub"><a href="#3-配置GitHub" class="headerlink" title="3.配置GitHub"></a>3.配置GitHub</h3><p>在Repository的Setting中启用github page功能.</p>
+<h3 id="创建Repository"><a href="#创建Repository" class="headerlink" title="创建Repository"></a>创建Repository</h3><p>创建Repository故名思议就是创建一个仓库，也就是代码仓库。一个博客的全部代码其实就是一套Html代码仓库。所以说任何一个仓库只要包含了一个index.html或者Readme.md文件，在开启page功能服务后都是可以通过 <strong>‘<a href="https://账号名.github.io/仓库名称" target="_blank" rel="external">https://账号名.github.io/仓库名称</a>‘</strong> 进行访问的。如果创建的是一个名称和github账号名称相同这样的特殊的Repository，就可以直接使用<strong>‘<a href="https://账号名.github.io/" target="_blank" rel="external">https://账号名.github.io/</a>‘</strong>进行访问。<br>个人博客就是利用上面的原理，创建一个和个人账号名称一样的Repository地址，就形成了个人博客主页，例如：<a href="https://yuanxiudong.github.io/" target="_blank" rel="external">https://yuanxiudong.github.io/</a> 。当然也可以放置在二级目录下。<br><img src="http://owaxmmyw3.bkt.clouddn.com/new_repository.png" alt=""></p>
+<h3 id="配置GitHub"><a href="#配置GitHub" class="headerlink" title="配置GitHub"></a>配置GitHub</h3><p>在Repository的Setting中启用github page功能.</p>
 <blockquote>
 <p><strong>注意：</strong>是Repository的Settings而非用户的Settings<br><img src="http://owaxmmyw3.bkt.clouddn.com/repository_settings.png" alt=""></p>
 </blockquote>
 <p>打开Repository的Settings界面向下滚动界面，找到GitHubPages选项，然后选择好代码分支，点击Save按钮，就会看到Pages的Site地址，如果Repository已经包含了一个主Readme文件，访问这个地址就能够看到内容。<br>启用pages功能以后，还可以选择一个主题或者绑定一个专属域名。这里选择的主题因为是官方利用Jekyll主题模版创建的，无法修改与配置，因此不做过多介绍，后续内容将说明如何使用Hexo主题模版创建一个博客主题。<br><img src="http://owaxmmyw3.bkt.clouddn.com/repository_pages.png" alt=""></p>
-<h3 id="4-搭建Hexo环境"><a href="#4-搭建Hexo环境" class="headerlink" title="4.搭建Hexo环境"></a>4.搭建Hexo环境</h3><p>Hexo是一套博客模版工具，能够根据用户配置生成不同的展示样式。Hexo基于Node.js所以需要先安装Node.js。安装过程比较简单，下载按照包以后直接点击安装即可。剩下的就是安装Hexo的环境，接下来具体说明每个步骤：</p>
-<ol>
-<li><p>启动gitbash.<br>在本地指定的文件夹下右键鼠标—&gt;Git Bash Here就可以启动Git的命令行工具窗口，接下来所有的操作都在这个命令行窗口中进行。</p>
+<h3 id="搭建Hexo环境"><a href="#搭建Hexo环境" class="headerlink" title="搭建Hexo环境"></a>搭建Hexo环境</h3><p>Hexo是一套博客模版工具，能够根据用户配置生成不同的展示样式。Hexo基于Node.js所以需要先安装Node.js。安装过程比较简单，下载按照包以后直接点击安装即可。剩下的就是安装Hexo的环境，接下来具体说明每个步骤：</p>
+<p>1.启动gitbash.<br>在本地指定的文件夹下右键鼠标—&gt;Git Bash Here就可以启动Git的命令行工具窗口，接下来所有的操作都在这个命令行窗口中进行。</p>
 <blockquote>
 <p> 只有安装了Git客户端工具才会有这个右键菜单。</p>
 </blockquote>
-</li>
-<li><p>安装Hexo.<br>在Git Bash窗口中使用npm安装Hexo，命令:   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
-</li>
-<li><p>初始化Hexo.<br>安装完毕后，继续执行init命令初始化Hexo，命令：   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>2.安装Hexo.<br>在Git Bash窗口中使用npm安装Hexo，命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo</div></pre></td></tr></table></figure></p>
+<p>3.初始化Hexo.<br>安装完毕后，继续执行init命令初始化Hexo，命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure></p>
 <p>执行完毕初始化命令之后就可以看到hexo的目录结构了：<br><img src="http://owaxmmyw3.bkt.clouddn.com/hexo_file_tree.png" alt=""></p>
 <ul>
 <li>node_modules : 模块组件文件夹，无需关注。</li>
@@ -427,23 +420,14 @@
 <blockquote>
 <p>直接输入init命令会将当前目录作为hexo根目录，也可以跟上一个目录，则这个目录就会成为hexo根目录，示例：<font color="#0099ff">hexo init blog</font> .     </p>
 </blockquote>
-<ol>
-<li>生成静态文件，命令：</li>
-</ol>
+<p>4.生成静态文件，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate (hexo g)</div></pre></td></tr></table></figure>
-<p>命令执行成功后会看到目录中新增了一个public的目录，这里就是博客的静态页面了。</p>
-<ol>
-<li>启动Hexo本地服务器进行预览调试，命令：</li>
-</ol>
+<p>命令执行成功后会看到目录中新增了一个public的目录，这里就是博客的静态页面了。<br>5.启动Hexo本地服务器进行预览调试，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo server</div></pre></td></tr></table></figure>
 <p>命令执行成功后，控制台会提示访问 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> ，在浏览器中访问这个地址就可以看到一个最原始的博客界面了。<br><strong>很多电脑上4000端口可能被占用</strong>，造成在浏览器中浏览 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 会发现什么都没有，为了避免这种情况，可以在启动本地服务器的时候修改一下端口，避免端口占用。命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//5500端口可以换成任何未使用的端口，这里仅做示例</div><div class="line">hexo server -p 5500</div></pre></td></tr></table></figure>
 <p>启动后访问：<a href="http://localhost:5500你可以看到博客首页了。" target="_blank" rel="external">http://localhost:5500你可以看到博客首页了。</a><br><img src="http://owaxmmyw3.bkt.clouddn.com/demo_blog_index.png" alt=""><br>至此，Hexod的环境搭建流程全部结束。</p>
-<h3 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h3><p>将这些页面部署到Github有两种方式：</p>
-<ol>
-<li>直接将Public中的所有文件放到前面创建的Repository根目录下，也就是将生成全部的全部静态文件放到Github上进行托管.</li>
-<li>利用Hexo的部署功能进行自动部署。打开hexo初始化目录中的_config.yml文件（使用文本编辑器打开，推荐NotePad++）,我们将这个文件称之为<font color="#0099ff"><strong>网站配置</strong></font>，后续说到网站配置文件指的就是这个文件。在文件的最后找到deploy选项按照如下格式进行修改：</li>
-</ol>
+<h3 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h3><p>将这些页面部署到Github有两种方式：<br>1.直接将Public中的所有文件放到前面创建的Repository根目录下，也就是将生成全部的全部静态文件放到Github上进行托管.<br>2.利用Hexo的部署功能进行自动部署。打开hexo初始化目录中的_config.yml文件（使用文本编辑器打开，推荐NotePad++）,我们将这个文件称之为<font color="#0099ff"><strong>网站配置</strong></font>，后续说到网站配置文件指的就是这个文件。在文件的最后找到deploy选项按照如下格式进行修改：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">    type: git</div><div class="line">    repo: https://github.com/yuanxiudong/yuanxiudong.github.io.git</div><div class="line">    branch: master</div></pre></td></tr></table></figure>
 <ul>
 <li>repo填写自己的repository地址，这里填写我自己的地址作为示例展示。</li>
@@ -454,31 +438,16 @@
 <blockquote>
 <p>部署的过程类似于将你生成的静态Html代码上传到你的github上的仓库中，如果是第一次部署会提示你需要输入账号和密码. </p>
 </blockquote>
-<h3 id="NextTheme主题介绍"><a href="#NextTheme主题介绍" class="headerlink" title="NextTheme主题介绍"></a>NextTheme主题介绍</h3><p>前面已经完成了github+hexo搭建个人博客的全部流程，但是因为默认的Hexo模版生成的博客主题并不一定符合用户的审美以及布局需要，因此在完成上述工作后就可以进行切换一个更漂亮的主题了。<br>在themes目录中可以看到一个文件夹landscape，这个就是默认主题了，后续新安装的主题和这个一样都是放在这个目录里面的，比如我们要介绍的NextTheme主题，这个主题在github上的星级很高，主题十分简洁，比较适合用来作为个人博客的主题，下面简单介绍一下如何给我们的博客切换主题。  </p>
-<ol>
-<li>下载Theme。下载主题有两种办法，一种直接下载压缩包然后解压到themes文件夹里面，另外一种直接使用git进行clone进thems里面,以clone next主题为例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>将clone下来的主题放在themes/next目录下。</p>
-<ol>
-<li><p>配置主题<br>打开网站配置_config.yml文件，拉到文件的最后，找打theme字段，将主题改成next.<br><img src="http://owaxmmyw3.bkt.clouddn.com/theme_setting.png" alt="">     </p>
-</li>
-<li><p>本地验证</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean</div><div class="line">hexo g</div><div class="line">hexo s -p 5500</div></pre></td></tr></table></figure>
-<p>  然后在浏览器中访问 <a href="http://localhost:5500" target="_blank" rel="external">http://localhost:5500</a> 查看效果（如果不知道这些命令的含义，回到前面的内容看），如果对效果满意就进行部署到github.  </p>
-</li>
-<li><p>部署到github</p>
+<h2 id="NextTheme主题介绍"><a href="#NextTheme主题介绍" class="headerlink" title="NextTheme主题介绍"></a>NextTheme主题介绍</h2><p>前面已经完成了github+hexo搭建个人博客的全部流程，但是因为默认的Hexo模版生成的博客主题并不一定符合用户的审美以及布局需要，因此在完成上述工作后就可以进行切换一个更漂亮的主题了。<br>在themes目录中可以看到一个文件夹landscape，这个就是默认主题了，后续新安装的主题和这个一样都是放在这个目录里面的，比如我们要介绍的NextTheme主题，这个主题在github上的星级很高，主题十分简洁，比较适合用来作为个人博客的主题，下面简单介绍一下如何给我们的博客切换主题。<br>1.下载Theme。下载主题有两种办法，一种直接下载压缩包然后解压到themes文件夹里面，另外一种直接使用git进行clone进thems里面,以clone next主题为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure></p>
+<p>将clone下来的主题放在themes/next目录下。<br>2.配置主题<br>打开网站配置_config.yml文件，拉到文件的最后，找打theme字段，将主题改成next.<br><img src="http://owaxmmyw3.bkt.clouddn.com/theme_setting.png" alt="">     </p>
+<p>3.本地验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean</div><div class="line">hexo g</div><div class="line">hexo s -p 5500</div></pre></td></tr></table></figure>
+<p>然后在浏览器中访问 <a href="http://localhost:5500" target="_blank" rel="external">http://localhost:5500</a> 查看效果（如果不知道这些命令的含义，回到前面的内容看），如果对效果满意就进行部署到github.  </p>
+<p>4.部署到github</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>没有说明theme更精细化配置，每个主题的精细化配置都有差别，需要参考主题的文档才能得到预想效果，一般的主题都是在github上进行发布，都会有详细的配置说明，可以进行参考配置。</p>
-<ol>
-<li>命令总结</li>
-</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>没有说明theme更精细化配置，每个主题的精细化配置都有差别，需要参考主题的文档才能得到预想效果，一般的主题都是在github上进行发布，都会有详细的配置说明，可以进行参考配置。<br>1.命令总结</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//安装hexo</div><div class="line">npm install -g hexo</div><div class="line">//初始化hexo工作目录</div><div class="line">hexo init</div><div class="line">// 清理已经生成的静态文件</div><div class="line">hexo clean</div><div class="line">// 生成静态文件</div><div class="line">hexo g</div><div class="line">// 部署到github上</div><div class="line">hexo d</div><div class="line">// 启动本地服务器</div><div class="line">hexo s</div><div class="line">// 创建一篇文章</div><div class="line">hexo new &quot;文章名称&quot;</div><div class="line">// 创建一个页面</div><div class="line">hexo new page &quot;页面名称&quot;</div></pre></td></tr></table></figure>
-<ol>
-<li>常量说明</li>
-</ol>
+<p>2.常量说明</p>
 <ul>
 <li>网站配置：在init初始化的hexo根目录。这个配置是全局性的，所有主题都共用的。</li>
 <li>主题配置：在每个主题的根目录，例如next的根目录，主要用来精细化配置主题的显示参数的，例如配置文章的评论，分类等功能，大部分的博客的配置工作都集中在这个文件里面。 </li>
@@ -678,7 +647,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Github-Hexo搭建个人博客"><span class="nav-number">1.</span> <span class="nav-text">Github+Hexo搭建个人博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">1.2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建流程"><span class="nav-number">1.3.</span> <span class="nav-text">搭建流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-注册账号"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.注册账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建Repository"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.创建Repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置GitHub"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.配置GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-搭建Hexo环境"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.搭建Hexo环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署到Github"><span class="nav-number">1.3.5.</span> <span class="nav-text">部署到Github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NextTheme主题介绍"><span class="nav-number">1.3.6.</span> <span class="nav-text">NextTheme主题介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后记"><span class="nav-number">1.3.7.</span> <span class="nav-text">后记</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Github-Hexo搭建个人博客"><span class="nav-number">1.</span> <span class="nav-text">Github+Hexo搭建个人博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">1.2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建流程"><span class="nav-number">1.3.</span> <span class="nav-text">搭建流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注册账号"><span class="nav-number">1.3.1.</span> <span class="nav-text">注册账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Repository"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建Repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置GitHub"><span class="nav-number">1.3.3.</span> <span class="nav-text">配置GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建Hexo环境"><span class="nav-number">1.3.4.</span> <span class="nav-text">搭建Hexo环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署到Github"><span class="nav-number">1.3.5.</span> <span class="nav-text">部署到Github</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NextTheme主题介绍"><span class="nav-number">1.4.</span> <span class="nav-text">NextTheme主题介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
