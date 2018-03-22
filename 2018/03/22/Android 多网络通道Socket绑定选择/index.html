@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,多网络,Socket与4G,开发总结," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Android 多网络通道Socket绑定选择Android 系统网络优先级Android设备例如手机，机顶盒，平板，智能硬件可能存在如下三种网络接口(不讨论蓝牙，NFC等)：    有线网络(ETHERNET)：物理网线连接 无线网络(WIFI)：路由器连接 移动网络(MOBILE)：运营商信号塔连接  正常情况如果三种网络同时存在且都处于开启和连接状态，Android系统的数据通道选择优先级如">
+<meta name="keywords" content="Android,多网络,Socket与4G,开发总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 多网络通道Socket绑定选择">
+<meta property="og:url" content="/2018/03/22/Android 多网络通道Socket绑定选择/index.html">
+<meta property="og:site_name" content="Seagle">
+<meta property="og:description" content="Android 多网络通道Socket绑定选择Android 系统网络优先级Android设备例如手机，机顶盒，平板，智能硬件可能存在如下三种网络接口(不讨论蓝牙，NFC等)：    有线网络(ETHERNET)：物理网线连接 无线网络(WIFI)：路由器连接 移动网络(MOBILE)：运营商信号塔连接  正常情况如果三种网络同时存在且都处于开启和连接状态，Android系统的数据通道选择优先级如">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog-image-1253454865.cosgz.myqcloud.com/Android%E7%BD%91%E7%BB%9C%E4%BC%98%E5%85%88%E7%BA%A7.png">
+<meta property="og:updated_time" content="2018-03-22T07:28:35.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 多网络通道Socket绑定选择">
+<meta name="twitter:description" content="Android 多网络通道Socket绑定选择Android 系统网络优先级Android设备例如手机，机顶盒，平板，智能硬件可能存在如下三种网络接口(不讨论蓝牙，NFC等)：    有线网络(ETHERNET)：物理网线连接 无线网络(WIFI)：路由器连接 移动网络(MOBILE)：运营商信号塔连接  正常情况如果三种网络同时存在且都处于开启和连接状态，Android系统的数据通道选择优先级如">
+<meta name="twitter:image" content="http://blog-image-1253454865.cosgz.myqcloud.com/Android%E7%BD%91%E7%BB%9C%E4%BC%98%E5%85%88%E7%BA%A7.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="/2018/03/22/Android 多网络通道Socket绑定选择/"/>
+
+
+
+
+
+  <title>Android 多网络通道Socket绑定选择 | Seagle</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Seagle</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">袁秀东</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/2018/03/22/Android 多网络通道Socket绑定选择/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="袁秀东">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/29770835?v=4&u=4116b0ac3ae2c82fd7769fabbbf6c4ff91768dda&s=400">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Seagle">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 多网络通道Socket绑定选择</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T15:30:57+08:00">
+                2018-03-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-03-22T15:28:35+08:00">
+                2018-03-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/多网络/" itemprop="url" rel="index">
+                    <span itemprop="name">多网络</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/多网络/Socket与4G/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket与4G</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/多网络/Socket与4G/开发总结/" itemprop="url" rel="index">
+                    <span itemprop="name">开发总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Android-多网络通道Socket绑定选择"><a href="#Android-多网络通道Socket绑定选择" class="headerlink" title="Android 多网络通道Socket绑定选择"></a>Android 多网络通道Socket绑定选择</h1><h2 id="Android-系统网络优先级"><a href="#Android-系统网络优先级" class="headerlink" title="Android 系统网络优先级"></a>Android 系统网络优先级</h2><p>Android设备例如手机，机顶盒，平板，智能硬件可能存在如下三种网络接口(不讨论蓝牙，NFC等)：  </p>
+<ul>
+<li>有线网络(ETHERNET)：物理网线连接</li>
+<li>无线网络(WIFI)：路由器连接</li>
+<li>移动网络(MOBILE)：运营商信号塔连接</li>
+</ul>
+<p>正常情况如果三种网络同时存在且都处于开启和连接状态，Android系统的数据通道选择优先级如下：</p>
+<p><img src="http://blog-image-1253454865.cosgz.myqcloud.com/Android%E7%BD%91%E7%BB%9C%E4%BC%98%E5%85%88%E7%BA%A7.png" alt="网络优先级图"></p>
+<blockquote>
+<p>正常情况下，如果有线网络，无线网络连通的情况下，系统会自动关闭移动网络，以节省用户流量。 部分手机如果修改了Framework策略，需要通过具体的测试验证以上顺序。</p>
+</blockquote>
+<p>但是，在Android 5.0及以上版本的系统中，系统会自动判断网络的连通性，也就是说，如果连接的有线网络，无线网络等是一个独立网络，无法访问互联网，那它们的优先级会自动降低，也就是说在上面的有线级基础上系统还会根据网络连通情况选择网络通道。  </p>
+<p><strong>==例如==</strong>：Android手机WIFI连接到一个未连接WAN的路由器热点，而手机同时打开了移动网络，系统就会默认选择移动网络作为优先的网络通道，如果关闭了移动网络系统才会切换到无法上网的无线网络中。</p>
+<blockquote>
+<p>Android 5.0以下的系统优先级是固定的，不会出现以下的问题。</p>
+</blockquote>
+<h2 id="Android数据通道"><a href="#Android数据通道" class="headerlink" title="Android数据通道"></a>Android数据通道</h2><p>一旦系统选择了某种网络作为数据通道，就会忽略其它网络状态，后续所有的TCP/UDP数据通信都会走这个网络。  </p>
+<p>==<strong>例如</strong>==：建立一个普通Socket连接，这个Socket的数据通信都将这个网络通道上进行。</p>
+<p><strong>这带来一些问题:</strong> </p>
+<ol>
+<li><p>局域网通信不可达</p>
+<p>如果在依赖局域网（LNA）环境的场景中，用户的WIFI网络没有WAN能力，因为系统网络通道的选择策略造成LAN所有的通信都无法使用。而这个问题在测试环境下是难以发现的，因为大部分公司的QA使用手机都是专门的测试机，这些测试机一般是不会按照SIM卡的，也就是没有移动网络，系统能够正确选择WIFI网络，但是到了实际用户手中问题就有可能发生。</p>
+<p> <strong>==例如==</strong>:局域网广播发现，连接局域网某个网络设备等因为网络通道是移动网络，就不可能发现和这些设备建立连接，应用场景就失败。</p>
+</li>
+<li><p>网络状态无法监控</p>
+<p> 如果系统发现WIFI无法访问WAN，如果手机已开启了移动网络，Android系统会发出这样的Broadcast通知：  </p>
+<pre><code>1) WIFI连接断开。  
+2) 移动网络连接成功。  
+</code></pre><p> 但实际在系统设置界面可以看到WIFI是连接成功，这样如果希望监控WIFI连接状态就无法接收到正确的Broadcast信息，从而造成判断WIFI连接超时或者网络状态不正确。</p>
+<p> ==<strong>例如</strong>==：调用系统的连接WIFI接口，然后通过Android系统Broadcast来判断WIFI是否实际连接成功等都会失败，如果希望通过判断WIFI连接成功候，启动局域网广播扫描等</p>
+</li>
+</ol>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="问题1：局域网通信不可达。"><a href="#问题1：局域网通信不可达。" class="headerlink" title="问题1：局域网通信不可达。"></a>问题1：局域网通信不可达。</h3><p>解决办法：主动将Socket绑定在指定的网口上（UDP一样）。<br>在创建一个Socket后执行connect操作前，指定这个Socket绑定的网络，执行如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">mSocket = new Socket();</div><div class="line">if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</div><div class="line">    Network network = null;</div><div class="line">    try &#123;</div><div class="line">        //获取WIFI的网口</div><div class="line">        Method getNetworkMethod = WifiManager.class.getMethod(&quot;getCurrentNetwork&quot;);</div><div class="line">        getNetworkMethod.setAccessible(true);</div><div class="line">        network = (Network) getNetworkMethod.invoke(mWifiManager);</div><div class="line">    &#125; catch (IllegalAccessException e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125; catch (InvocationTargetException e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    if (network != null) &#123;</div><div class="line">        network.bindSocket(mSocket);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这样创建的Socket所有数据的接收和发送都会走WIFI网口。</p>
+<h3 id="问题2：网络状态无法监控"><a href="#问题2：网络状态无法监控" class="headerlink" title="问题2：网络状态无法监控"></a>问题2：网络状态无法监控</h3><p>解决办法：主动轮询WIFI连接状态。<br>虽然系统不BroadcastWIFI连接状态，实际上WIFI还是能连接成的，如果我们主动查询WIFI的连接信息是可以判断是否连接成功。例如执行如下代码来判断WIFI是否连接成功以及连接的是哪个WIFI：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">WifiInfo wifiInfo = WifiManager#getConnectionInfo()</div><div class="line">if(wifiInfo != null &amp;&amp; wifiInfo.getSupplicantState() == SupplicantState.COMPLETED)&#123;</div><div class="line">    //wifi连接正常</div><div class="line">&#125;else&#123;</div><div class="line">    //wifi未连接。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以用定时查询的办法在指定的时间范围内检查WIFI的连接信息，操作超时后停止轮询。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/多网络/" rel="tag"># 多网络</a>
+          
+            <a href="/tags/Socket与4G/" rel="tag"># Socket与4G</a>
+          
+            <a href="/tags/开发总结/" rel="tag"># 开发总结</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/12/Hexo博客搭建流程/" rel="next" title="Github+Hexo搭建个人博客">
+                <i class="fa fa-chevron-left"></i> Github+Hexo搭建个人博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5Ny83NDQ2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="https://avatars3.githubusercontent.com/u/29770835?v=4&u=4116b0ac3ae2c82fd7769fabbbf6c4ff91768dda&s=400"
+              alt="袁秀东" />
+          
+            <p class="site-author-name" itemprop="name">袁秀东</p>
+            <p class="site-description motion-element" itemprop="description">Sealge Blog</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuanxiudong" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:yuanxiudong66@sina.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-多网络通道Socket绑定选择"><span class="nav-number">1.</span> <span class="nav-text">Android 多网络通道Socket绑定选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-系统网络优先级"><span class="nav-number">1.1.</span> <span class="nav-text">Android 系统网络优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android数据通道"><span class="nav-number">1.2.</span> <span class="nav-text">Android数据通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">1.3.</span> <span class="nav-text">解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1：局域网通信不可达。"><span class="nav-number">1.3.1.</span> <span class="nav-text">问题1：局域网通信不可达。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2：网络状态无法监控"><span class="nav-number">1.3.2.</span> <span class="nav-text">问题2：网络状态无法监控</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">袁秀东</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

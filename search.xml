@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[锄禾]]></title>
-    <url>%2F2017%2F09%2F12%2F%E9%94%84%E7%A6%BE%2F</url>
-    <content type="text"><![CDATA[锄禾日当午,汗滴禾下土。谁知盘中餐，粒粒皆辛苦。]]></content>
+    <title><![CDATA[Android 多网络通道Socket绑定选择]]></title>
+    <url>%2F2018%2F03%2F22%2FAndroid%20%E5%A4%9A%E7%BD%91%E7%BB%9C%E9%80%9A%E9%81%93Socket%E7%BB%91%E5%AE%9A%E9%80%89%E6%8B%A9%2F</url>
+    <content type="text"><![CDATA[Android 多网络通道Socket绑定选择Android 系统网络优先级Android设备例如手机，机顶盒，平板，智能硬件可能存在如下三种网络接口(不讨论蓝牙，NFC等)： 有线网络(ETHERNET)：物理网线连接 无线网络(WIFI)：路由器连接 移动网络(MOBILE)：运营商信号塔连接 正常情况如果三种网络同时存在且都处于开启和连接状态，Android系统的数据通道选择优先级如下： 正常情况下，如果有线网络，无线网络连通的情况下，系统会自动关闭移动网络，以节省用户流量。 部分手机如果修改了Framework策略，需要通过具体的测试验证以上顺序。 但是，在Android 5.0及以上版本的系统中，系统会自动判断网络的连通性，也就是说，如果连接的有线网络，无线网络等是一个独立网络，无法访问互联网，那它们的优先级会自动降低，也就是说在上面的有线级基础上系统还会根据网络连通情况选择网络通道。 ==例如==：Android手机WIFI连接到一个未连接WAN的路由器热点，而手机同时打开了移动网络，系统就会默认选择移动网络作为优先的网络通道，如果关闭了移动网络系统才会切换到无法上网的无线网络中。 Android 5.0以下的系统优先级是固定的，不会出现以下的问题。 Android数据通道一旦系统选择了某种网络作为数据通道，就会忽略其它网络状态，后续所有的TCP/UDP数据通信都会走这个网络。 ==例如==：建立一个普通Socket连接，这个Socket的数据通信都将这个网络通道上进行。 这带来一些问题: 局域网通信不可达 如果在依赖局域网（LNA）环境的场景中，用户的WIFI网络没有WAN能力，因为系统网络通道的选择策略造成LAN所有的通信都无法使用。而这个问题在测试环境下是难以发现的，因为大部分公司的QA使用手机都是专门的测试机，这些测试机一般是不会按照SIM卡的，也就是没有移动网络，系统能够正确选择WIFI网络，但是到了实际用户手中问题就有可能发生。 ==例如==:局域网广播发现，连接局域网某个网络设备等因为网络通道是移动网络，就不可能发现和这些设备建立连接，应用场景就失败。 网络状态无法监控 如果系统发现WIFI无法访问WAN，如果手机已开启了移动网络，Android系统会发出这样的Broadcast通知： 1) WIFI连接断开。 2) 移动网络连接成功。 但实际在系统设置界面可以看到WIFI是连接成功，这样如果希望监控WIFI连接状态就无法接收到正确的Broadcast信息，从而造成判断WIFI连接超时或者网络状态不正确。 ==例如==：调用系统的连接WIFI接口，然后通过Android系统Broadcast来判断WIFI是否实际连接成功等都会失败，如果希望通过判断WIFI连接成功候，启动局域网广播扫描等 解决办法问题1：局域网通信不可达。解决办法：主动将Socket绑定在指定的网口上（UDP一样）。在创建一个Socket后执行connect操作前，指定这个Socket绑定的网络，执行如下代码： 1234567891011121314151617mSocket = new Socket();if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123; Network network = null; try &#123; //获取WIFI的网口 Method getNetworkMethod = WifiManager.class.getMethod(&quot;getCurrentNetwork&quot;); getNetworkMethod.setAccessible(true); network = (Network) getNetworkMethod.invoke(mWifiManager); &#125; catch (IllegalAccessException e) &#123; e.printStackTrace(); &#125; catch (InvocationTargetException e) &#123; e.printStackTrace(); &#125; if (network != null) &#123; network.bindSocket(mSocket); &#125; &#125; 这样创建的Socket所有数据的接收和发送都会走WIFI网口。 问题2：网络状态无法监控解决办法：主动轮询WIFI连接状态。虽然系统不BroadcastWIFI连接状态，实际上WIFI还是能连接成的，如果我们主动查询WIFI的连接信息是可以判断是否连接成功。例如执行如下代码来判断WIFI是否连接成功以及连接的是哪个WIFI： 123456WifiInfo wifiInfo = WifiManager#getConnectionInfo()if(wifiInfo != null &amp;&amp; wifiInfo.getSupplicantState() == SupplicantState.COMPLETED)&#123; //wifi连接正常&#125;else&#123; //wifi未连接。&#125; 可以用定时查询的办法在指定的时间范围内检查WIFI的连接信息，操作超时后停止轮询。]]></content>
       <categories>
-        <category>随笔</category>
+        <category>Android</category>
+        <category>多网络</category>
+        <category>Socket与4G</category>
+        <category>开发总结</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
-        <tag>诗词</tag>
-        <tag>生活</tag>
+        <tag>Android</tag>
+        <tag>多网络</tag>
+        <tag>Socket与4G</tag>
+        <tag>开发总结</tag>
       </tags>
   </entry>
   <entry>
